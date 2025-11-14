@@ -1,18 +1,18 @@
 using System;
 
-namespace OpenCampus.API.DTOs.Institutions;
+namespace OpenCampus.API.DTOs.Courses;
 
-public record InstitutionListDto
+public record CourseListDto
 {
     public Guid Id { get; init; }
 
     public string Name { get; init; } = string.Empty;
 
-    public string? Acronym { get; init; }
-
     public string? Description { get; init; }
 
-    public string? WebsiteUrl { get; init; }
+    public Guid InstitutionId { get; init; }
+
+    public string InstitutionName { get; init; } = string.Empty;
 
     public double AverageScore { get; init; }
 

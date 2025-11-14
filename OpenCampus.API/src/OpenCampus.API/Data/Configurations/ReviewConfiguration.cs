@@ -59,6 +59,26 @@ public class ReviewConfiguration : IEntityTypeConfiguration<Review>
         builder.HasIndex(r => new { r.TargetType, r.Approved });
         builder.HasIndex(r => r.AuthorId);
 
+        builder.HasIndex(r => new { r.AuthorId, r.InstitutionId })
+            .IsUnique()
+            .HasDatabaseName("IX_Reviews_Author_Institution")
+            .HasFilter("\"TargetType\" = 'INSTITUTION' AND \"InstitutionId\" IS NOT NULL");
+
+        builder.HasIndex(r => new { r.AuthorId, r.CourseId })
+            .IsUnique()
+            .HasDatabaseName("IX_Reviews_Author_Course")
+            .HasFilter("\"TargetType\" = 'COURSE' AND \"CourseId\" IS NOT NULL");
+
+        builder.HasIndex(r => new { r.AuthorId, r.ProfessorId })
+            .IsUnique()
+            .HasDatabaseName("IX_Reviews_Author_Professor")
+            .HasFilter("\"TargetType\" = 'PROFESSOR' AND \"ProfessorId\" IS NOT NULL");
+
+        builder.HasIndex(r => new { r.AuthorId, r.SubjectId })
+            .IsUnique()
+            .HasDatabaseName("IX_Reviews_Author_Subject")
+            .HasFilter("\"TargetType\" = 'SUBJECT' AND \"SubjectId\" IS NOT NULL");
+
         builder.HasOne(r => r.Author)
             .WithMany(u => u.ReviewsAuthored)
             .HasForeignKey(r => r.AuthorId)
@@ -87,6 +107,6 @@ public class ReviewConfiguration : IEntityTypeConfiguration<Review>
         builder.HasMany(r => r.Comments)
             .WithOne(c => c.Review)
             .HasForeignKey(c => c.ReviewId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }
