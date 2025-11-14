@@ -9,6 +9,7 @@ using OpenCampus.API.DTOs.Institutions;
 using OpenCampus.API.DTOs.Professors;
 using OpenCampus.API.DTOs.Reviews;
 using OpenCampus.API.DTOs.Subjects;
+using OpenCampus.API.DTOs.Users;
 using OpenCampus.API.Entities;
 
 namespace OpenCampus.API.Mappings;
@@ -24,6 +25,7 @@ public class MappingProfile : Profile
         CreateProfessorMappings();
         CreateReviewMappings();
         CreateSubjectMappings();
+        CreateUserMappings();
     }
 
     private void CreateCommentMappings()
@@ -191,5 +193,10 @@ public class MappingProfile : Profile
     {
         var total = review.ScoreClarity + review.ScoreRelevance + review.ScoreSupport + review.ScoreInfrastructure;
         return total / 4d;
+    }
+
+    private void CreateUserMappings()
+    {
+        CreateMap<User, UserDetailDto>();
     }
 }
