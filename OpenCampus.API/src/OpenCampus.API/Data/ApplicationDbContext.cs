@@ -19,6 +19,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Review> Reviews => Set<Review>();
     public DbSet<Comment> Comments => Set<Comment>();
     public DbSet<ChangeRequest> ChangeRequests => Set<ChangeRequest>();
+    public DbSet<SystemRole> Roles => Set<SystemRole>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

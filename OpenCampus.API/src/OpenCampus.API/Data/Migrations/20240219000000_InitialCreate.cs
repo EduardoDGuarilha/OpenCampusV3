@@ -12,6 +12,23 @@ namespace OpenCampus.API.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Roles",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 64, nullable: false),
+                    NormalizedName = table.Column<string>(type: "TEXT", maxLength: 64, nullable: false),
+                    DisplayName = table.Column<string>(type: "TEXT", maxLength: 128, nullable: false),
+                    Description = table.Column<string>(type: "TEXT", maxLength: 512, nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
+                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Roles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Institutions",
                 columns: table => new
                 {
@@ -263,6 +280,18 @@ namespace OpenCampus.API.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Roles_Name",
+                table: "Roles",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Roles_NormalizedName",
+                table: "Roles",
+                column: "NormalizedName",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ChangeRequests_CourseId",
                 table: "ChangeRequests",
                 column: "CourseId");
@@ -437,6 +466,9 @@ namespace OpenCampus.API.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Institutions");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
         }
     }
 }
