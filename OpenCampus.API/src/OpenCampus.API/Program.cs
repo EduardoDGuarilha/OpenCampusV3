@@ -22,8 +22,7 @@ services.AddDbContext<ApplicationDbContext>(options =>
 // AutoMapper
 services.AddAutoMapper(typeof(Program));
 
-// Register services, repositories, auth, policies etc.
-services.AddApplicationServices(configuration);
+services.AddScoped<DatabaseSeeder>();
 
 // Controllers
 services.AddControllers()
