@@ -33,7 +33,7 @@ public class ChangeRequestConfiguration : IEntityTypeConfiguration<ChangeRequest
         builder.Property(cr => cr.Status)
             .HasConversion(statusConverter)
             .HasMaxLength(32)
-            .HasDefaultValue("PENDING")
+            .HasDefaultValue(ChangeRequestStatus.Pending)
             .IsRequired();
 
         builder.Property(cr => cr.SuggestedData)

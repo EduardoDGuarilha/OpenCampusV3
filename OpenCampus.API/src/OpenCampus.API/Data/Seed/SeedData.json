@@ -1,0 +1,50 @@
+﻿{
+  "institutions": [
+    {
+      "name": "Universidade Cívica Aberta",
+      "acronym": "UCA",
+      "description": "Instituição pública fictícia voltada à transparência acadêmica e à participação social.",
+      "websiteUrl": "https://uca.example",
+      "courses": [
+        {
+          "name": "Ciência de Dados para Políticas Públicas",
+          "description": "Formação interdisciplinar que combina métodos quantitativos com governança participativa.",
+          "subjects": [
+            {
+              "name": "Transparência e Dados Abertos",
+              "description": "Práticas de abertura de dados e prestação de contas alinhadas à LGPD."
+            },
+            {
+              "name": "Indicadores Educacionais",
+              "description": "Avaliação responsável de métricas acadêmicas sem exposição de dados pessoais."
+            }
+          ]
+        },
+        {
+          "name": "Gestão Colaborativa de Instituições Educacionais",
+          "description": "Curso dedicado à administração democrática e à melhoria contínua da qualidade acadêmica.",
+          "subjects": [
+            {
+              "name": "Mediação e Ouvidoria",
+              "description": "Processos de acolhimento e resolução de demandas acadêmicas com foco em privacidade."
+            },
+            {
+              "name": "Ética Aplicada à Educação",
+              "description": "Discussão de dilemas éticos e diretrizes de proteção de dados no ambiente universitário."
+            }
+          ]
+        }
+      ],
+      "professors": [
+        {
+          "fullName": "Coordenação Pedagógica Integrada",
+          "bio": "Equipe responsável pela articulação entre estudantes, docentes e setor administrativo."
+        },
+        {
+          "fullName": "Comissão de Transparência Acadêmica",
+          "bio": "Grupo multidisciplinar que orienta políticas de acesso à informação sem violar a LGPD."
+        }
+      ]
+    }
+  ]
+}
