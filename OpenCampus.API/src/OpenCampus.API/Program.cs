@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OpenCampus.API.Configuration.DependencyInjection;
 using OpenCampus.API.Data.Seed;
+using OpenCampus.API.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,8 +16,12 @@ services.AddAuthenticationServices(configuration);
 services.AddAuthorizationServices();
 services.AddAutoMapper(typeof(Program));
 services.AddApplicationServices();
+services.AddApiFilters();
 
-services.AddControllers()
+services.AddControllers(options =>
+    {
+        options.Filters.Add<ValidateModelFilter>();
+    })
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.PropertyNamingPolicy = null;
