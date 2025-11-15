@@ -19,6 +19,9 @@ public static class ServiceRegistration
         services.AddScoped<ICommentService, CommentService>();
         services.AddScoped<IChangeRequestService, ChangeRequestService>();
         services.AddScoped<IModerationService, ModerationService>();
+        services.AddScoped<IInstitutionService, InstitutionService>();
+        services.AddScoped<ISubjectService, SubjectService>();
+        services.AddScoped<IUserService, UserService>();
 
         services.AddScoped<ReviewBusinessValidator>();
         services.AddScoped<CommentEligibilityValidator>();

@@ -13,4 +13,5 @@ public static class ErrorCodes
     public const string ChangeRequestInvalidPayload = "change_request_invalid_payload";
     public const string TargetEntityNotFound = "target_entity_not_found";
     public const string UserNotFound = "user_not_found";
+    public const string UserAlreadyExists = "user_already_exists";
 }
