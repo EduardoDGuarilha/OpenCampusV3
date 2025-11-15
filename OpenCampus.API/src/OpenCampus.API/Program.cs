@@ -1,41 +1,35 @@
 using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OpenCampus.API.Configuration.DependencyInjection;
-using OpenCampus.API.Data;
 using OpenCampus.API.Data.Seed;
+using OpenCampus.API.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var configuration = builder.Configuration;
 var services = builder.Services;
 
-// DB
-var connectionString = configuration.GetConnectionString("DefaultConnection")
-                       ?? "Data Source=opencampus.db";
-
-services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(connectionString));
-
-// AutoMapper
+services.AddDatabase(configuration);
+services.AddAuthenticationServices(configuration);
+services.AddAuthorizationServices();
 services.AddAutoMapper(typeof(Program));
+services.AddApplicationServices();
+services.AddApiFilters();
 
-services.AddScoped<DatabaseSeeder>();
-
-// Controllers
-services.AddControllers()
-    .AddJsonOptions(o =>
+services.AddControllers(options =>
     {
-        o.JsonSerializerOptions.PropertyNamingPolicy = null;
+        options.Filters.Add<ValidateModelFilter>();
+    })
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNamingPolicy = null;
     });
 
-// Swagger
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
 
-// CORS para o frontend
 services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
@@ -48,12 +42,8 @@ services.AddCors(options =>
 
 var app = builder.Build();
 
-// Migrations + Seed
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    db.Database.Migrate();
-
     var seeder = scope.ServiceProvider.GetRequiredService<DatabaseSeeder>();
     await seeder.SeedAsync();
 }
@@ -63,13 +53,12 @@ app.UseCors("AllowFrontend");
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers();
-
-// Swagger UI apenas em dev
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.MapControllers();
 
 app.Run();
